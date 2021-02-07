@@ -2,7 +2,8 @@
 
 Set of Java Selenium utilities.
 
-If you want to use it, you need to do two things.
+If you want to use it, you need to do the following.
+
 First, add jitpack repository to the pom.xml:
 ```xml
 <repositories>
@@ -22,4 +23,9 @@ Second, add dependency to the pom.xml:
     <version>6fe86cc</version>
   </dependency>
 </dependencies>
+ ```
+
+Third, let the library know where to get your driver instance. In my case, I am using driver factory, which is also part of this project.
+```java
+SeleniumUtils.setSupplier(DriverFactory::getDriver);
  ```
