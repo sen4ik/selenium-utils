@@ -19,7 +19,7 @@ Second, add dependency to the pom.xml:
   <dependency>
     <groupId>com.github.sen4ik</groupId>
     <artifactId>selenium-utils</artifactId>
-    <version></version>
+    <version>6fe86cc</version>
   </dependency>
 </dependencies>
  ```
