@@ -11,7 +11,11 @@ public class SeleniumUtils {
     public static int defaultTimeoutInSeconds = 60;
     public static int defaultPollingPeriodInMilliseconds = 500;
 
-    public static void setSupplier(Supplier supplier){
+    /**
+     * Sets supplier so utils know where to get the driver instance.
+     * @param supplier
+     */
+    public static void init(Supplier supplier){
         SeleniumUtils.supplier = supplier;
     }
 

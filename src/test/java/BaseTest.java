@@ -13,7 +13,7 @@ public class BaseTest {
 
     @BeforeClass
     public void bc(){
-        SeleniumUtils.setSupplier(DriverFactory::getDriver);
+        SeleniumUtils.init(DriverFactory::getDriver);
     }
 
     @BeforeMethod
