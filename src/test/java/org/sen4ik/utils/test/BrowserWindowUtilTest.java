@@ -1,3 +1,5 @@
+package org.sen4ik.utils.test;
+
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.NoSuchWindowException;
 import org.sen4ik.utils.selenium.utils.BrowserWindowUtil;
@@ -18,17 +20,17 @@ public class BrowserWindowUtilTest extends BaseTest {
         assertTrue(BrowserWindowUtil.isWindowPresent(googleTitle));
     }
 
-    @Test(expectedExceptions = NoSuchWindowException.class)
+    @Test(expectedExceptions = NoSuchWindowException.class, priority = 1000)
     public void switchToWindow_negativeOne() {
         BrowserWindowUtil.switchToWindow(999);
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class, priority = 1001)
     public void switchToWindow_negativeTwo() {
         BrowserWindowUtil.switchToWindow(-1);
     }
 
-    @Test
+    @Test(priority = 999)
     public void switchToWindow() {
         JavaScriptUtil.openNewTabAndSwitch("http://versefrombible.com");
         JavaScriptUtil.openNewTabAndSwitch("http://yahoo.com");

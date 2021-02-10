@@ -1,3 +1,5 @@
+package org.sen4ik.utils.test;
+
 import org.sen4ik.utils.selenium.utils.BrowserWindowUtil;
 import org.sen4ik.utils.selenium.utils.JavaScriptUtil;
 import org.testng.annotations.Test;
