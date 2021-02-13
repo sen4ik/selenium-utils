@@ -1,6 +1,6 @@
-package org.sen4ik.utils.test;
+package tests;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.NoSuchWindowException;
 import org.sen4ik.utils.selenium.utils.BrowserWindowUtil;
 import org.sen4ik.utils.selenium.utils.JavaScriptUtil;
@@ -8,11 +8,13 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
 
-@Slf4j
+@Log4j2
 public class BrowserWindowUtilTest extends BaseTest {
 
     String vfbTitle = "VerseFromBible.com";
     String googleTitle = "Google";
+    String yahooUrl = "http://yahoo.com";
+    String vfbUrl = "http://versefrombible.com";
 
     @Test
     public void getTitleAndIsWindowPresent() {
@@ -20,20 +22,35 @@ public class BrowserWindowUtilTest extends BaseTest {
         assertTrue(BrowserWindowUtil.isWindowPresent(googleTitle));
     }
 
-    @Test(expectedExceptions = NoSuchWindowException.class, priority = 1000)
+    @Test
+    public void getWindowCount() {
+        assertTrue(BrowserWindowUtil.getWindowCount() == 1);
+        JavaScriptUtil.openNewTabAndSwitch(yahooUrl);
+        assertTrue(BrowserWindowUtil.getWindowCount() == 2);
+    }
+
+    @Test
+    public void closeCurrentWindow() {
+        JavaScriptUtil.openNewTabAndSwitch(yahooUrl);
+        assertTrue(BrowserWindowUtil.getWindowCount() == 2);
+        BrowserWindowUtil.closeCurrentWindow();
+        assertTrue(BrowserWindowUtil.getWindowCount() == 1);
+    }
+
+    @Test(expectedExceptions = NoSuchWindowException.class)
     public void switchToWindow_negativeOne() {
         BrowserWindowUtil.switchToWindow(999);
     }
 
-    @Test(expectedExceptions = IllegalArgumentException.class, priority = 1001)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void switchToWindow_negativeTwo() {
         BrowserWindowUtil.switchToWindow(-1);
     }
 
-    @Test(priority = 999)
+    @Test
     public void switchToWindow() {
-        JavaScriptUtil.openNewTabAndSwitch("http://versefrombible.com");
-        JavaScriptUtil.openNewTabAndSwitch("http://yahoo.com");
+        JavaScriptUtil.openNewTabAndSwitch(vfbUrl);
+        JavaScriptUtil.openNewTabAndSwitch(yahooUrl);
         BrowserWindowUtil.switchToWindowWhereTitleEquals(vfbTitle);
         assertTrue(BrowserWindowUtil.getTitle().equals(vfbTitle));
         BrowserWindowUtil.switchToWindow(1);
@@ -42,20 +59,6 @@ public class BrowserWindowUtilTest extends BaseTest {
         assertTrue(BrowserWindowUtil.getTitle().equals(vfbTitle));
         BrowserWindowUtil.switchToWindow(1);
         assertTrue(BrowserWindowUtil.getTitle().equals(googleTitle));
-    }
-
-    @Test
-    public void temp() {
-        JavaScriptUtil.openNewTabAndSwitch("http://versefrombible.com");
-        JavaScriptUtil.openNewTabAndSwitch("http://yahoo.com");
-        log.info(BrowserWindowUtil.getWindowCount() + "");
-
-        BrowserWindowUtil.closeCurrentWindow();
-        log.info(BrowserWindowUtil.getWindowCount() + "");
-        BrowserWindowUtil.switchToWindow(1);
-
-        JavaScriptUtil.openNewTabAndSwitch("http://habr.com");
-        BrowserWindowUtil.closeAllWindows();
     }
 
 }

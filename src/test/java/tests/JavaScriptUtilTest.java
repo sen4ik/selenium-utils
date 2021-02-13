@@ -1,4 +1,4 @@
-package org.sen4ik.utils.test;
+package tests;
 
 import org.sen4ik.utils.selenium.utils.BrowserWindowUtil;
 import org.sen4ik.utils.selenium.utils.JavaScriptUtil;

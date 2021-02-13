@@ -1,11 +1,11 @@
 package org.sen4ik.utils.selenium.utils;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-@Slf4j
+@Log4j2
 public class KeyboardUtil {
 
     public static void pressEnterButton() throws AWTException {
@@ -36,6 +36,12 @@ public class KeyboardUtil {
         log.info("CALLED: pressF11Button()");
         Robot robot = new Robot();
         robot.keyPress(KeyEvent.VK_F11);
+    }
+
+    public static void pressCtrlButton() throws AWTException {
+        log.info("CALLED: pressCtrlButton()");
+        Robot robot = new Robot();
+        robot.keyPress(KeyEvent.VK_CONTROL);
     }
 
 }

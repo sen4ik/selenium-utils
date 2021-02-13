@@ -1,6 +1,6 @@
 package org.sen4ik.utils.selenium.utils;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -9,7 +9,7 @@ import org.sen4ik.utils.selenium.base.SeleniumUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
+@Log4j2
 public class DropdownUtil extends SeleniumUtils {
 
     /**

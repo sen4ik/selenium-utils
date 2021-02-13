@@ -1,6 +1,6 @@
 package org.sen4ik.utils.selenium.utils;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -9,14 +9,16 @@ import org.sen4ik.utils.selenium.base.SeleniumUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
+@Log4j2
 public class DriverUtil extends SeleniumUtils {
 
     public static void disableImplicitWaits() {
+        log.info("CALLED: disableImplicitWaits()");
         WaiterUtil.disableImplicitWaits();
     }
 
     public static void enableImplicitWaits(long seconds) {
+        log.info("CALLED: enableImplicitWaits()");
         WaiterUtil.enableImplicitWaits(seconds);
     }
 

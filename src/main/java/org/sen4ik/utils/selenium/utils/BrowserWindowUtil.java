@@ -1,6 +1,6 @@
 package org.sen4ik.utils.selenium.utils;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
@@ -12,7 +12,7 @@ import org.sen4ik.utils.selenium.enums.ScreenSizes;
 import java.awt.Rectangle;
 import java.util.Set;
 
-@Slf4j
+@Log4j2
 public class BrowserWindowUtil extends SeleniumUtils {
 
     public static String getTitle() {
@@ -94,6 +94,7 @@ public class BrowserWindowUtil extends SeleniumUtils {
         }
 
         if(!found){
+            log.warn("Window is not found using title " + title + ". Switching back to the initial window.");
             getDriver().switchTo().window(currentWindowHandle);
         }
 
@@ -152,11 +153,11 @@ public class BrowserWindowUtil extends SeleniumUtils {
     */
 
     public static boolean switchToWindow(int index) throws NoSuchWindowException{
-        log.debug("CALLED: switchToWindow(\"" + index + "\")");
+        log.info("CALLED: switchToWindow(\"" + index + "\")");
 
         Set<String> handles = getDriver().getWindowHandles();
         int windowCount = handles.size();
-        log.debug("Number of currently shown windows: " + windowCount);
+        log.info("Number of currently shown windows: " + windowCount);
 
         if(index > windowCount){
             throw new NoSuchWindowException("index argument is greater than the current window count");

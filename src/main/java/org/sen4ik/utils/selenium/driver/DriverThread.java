@@ -1,7 +1,7 @@
 package org.sen4ik.utils.selenium.driver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -11,26 +11,29 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
+@Log4j2
 public class DriverThread {
 
     private WebDriver driver = null;
 
     public WebDriver getDriver() {
+        log.debug("CALLED: getDriver()");
         if (this.driver == null) {
-            instantiateWebDriver();
+            instantiateDriver();
         }
         return this.driver;
     }
 
     public void quitDriver() {
-        if (driver != null) {
-            driver.quit();
-            driver = null;
+        log.debug("CALLED: quitDriver()");
+        if (this.driver != null) {
+            this.driver.quit();
+            this.driver = null;
         }
     }
 
-    private void instantiateWebDriver() {
+    private void instantiateDriver() {
+        log.debug("CALLED: instantiateDriver()");
         ChromeOptions options = new ChromeOptions();
 
         List<String> arguments = new ArrayList<>();
@@ -45,8 +48,8 @@ public class DriverThread {
         capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
         options.merge(capabilities);
 
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver(options);
+         WebDriverManager.chromedriver().setup();
+        this.driver = new ChromeDriver(options);
     }
 
 }

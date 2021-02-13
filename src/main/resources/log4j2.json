@@ -1,0 +1,35 @@
+{
+  "configuration": {
+    "name": "Default",
+    "appenders": {
+      "Console": {
+        "name": "STDOUT",
+        "target": "SYSTEM_OUT",
+        "PatternLayout": {
+          "pattern": "%d{MM/dd/yyyy HH:mm:ss.SSS } %highlight{${LOG_LEVEL_PATTERN:-%5p}}{FATAL=red bright, ERROR=red, WARN=yellow, INFO=green, DEBUG=green, TRACE=blue} [%C{1}.%M():%L] %t - %m%n"
+        }
+      },
+      "File": {
+        "name": "LogFile",
+        "fileName": "logs/log.log",
+        "append": "false",
+        "PatternLayout": {
+          "pattern": "%d{MM/dd/yyyy HH:mm:ss.SSS} %p %t %c (%L) - %m%n"
+        }
+      }
+    },
+    "loggers": {
+      "root": {
+        "level": "debug",
+        "AppenderRef": [
+          {
+            "ref": "STDOUT"
+          },
+          {
+            "ref": "LogFile"
+          }
+        ]
+      }
+    }
+  }
+}
