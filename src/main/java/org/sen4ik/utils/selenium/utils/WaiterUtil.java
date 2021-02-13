@@ -173,9 +173,9 @@ public class WaiterUtil extends SeleniumUtils {
 	 * @param timeout
 	 * @return
 	 */
-	public static boolean waitForElement(WebDriver driver, By locator, long timeout) {
+	public static boolean waitForElement(By locator, long timeout) {
 		log.info("CALLED: waitForElement()");
-		WebDriverWait wait = new WebDriverWait(driver, timeout, 500);
+		WebDriverWait wait = new WebDriverWait(getDriver(), timeout, 500);
 		try{
 			wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 			wait.until(ExpectedConditions.elementToBeClickable(locator));
@@ -187,10 +187,6 @@ public class WaiterUtil extends SeleniumUtils {
 			return false;
 		}
 	}
-
-	//	public static boolean waitForElement(By locator, long timeout) {
-	//		return waitForElement(getDriver(), locator, timeout);
-	//	}
 
 	public static boolean waitForElementToBecomeVisible(WebElement webElement, long timeoutInSeconds) {
 		log.info("CALLED: waitForElementToBecomeVisible()");
