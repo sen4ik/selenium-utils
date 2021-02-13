@@ -17,7 +17,7 @@ public class DriverUtil extends SeleniumUtils {
         WaiterUtil.disableImplicitWaits();
     }
 
-    public static void enableImplicitWaits(long seconds) {
+    public static void enableImplicitWaits(int seconds) {
         log.info("CALLED: enableImplicitWaits()");
         WaiterUtil.enableImplicitWaits(seconds);
     }

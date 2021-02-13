@@ -25,7 +25,7 @@ public class WaiterUtil extends SeleniumUtils {
 	 * Sets implicit wait.
 	 * @return
 	 */
-	public static void enableImplicitWaits(long seconds) {
+	public static void enableImplicitWaits(int seconds) {
 		log.info("CALLED: turnOnImplicitWaits(" + seconds + ")");
 		getDriver().manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
 	}
@@ -173,7 +173,7 @@ public class WaiterUtil extends SeleniumUtils {
 	 * @param timeout
 	 * @return
 	 */
-	public static boolean waitForElement(By locator, long timeout) {
+	public static boolean waitForElement(By locator, int timeout) {
 		log.info("CALLED: waitForElement()");
 		WebDriverWait wait = new WebDriverWait(getDriver(), timeout, 500);
 		try{
@@ -188,21 +188,21 @@ public class WaiterUtil extends SeleniumUtils {
 		}
 	}
 
-	public static boolean waitForElementToBecomeVisible(WebElement webElement, long timeoutInSeconds) {
+	public static boolean waitForElementToBecomeVisible(WebElement webElement, int timeoutInSeconds) {
 		log.info("CALLED: waitForElementToBecomeVisible()");
 		WebDriverWait wait = new WebDriverWait(getDriver(), timeoutInSeconds);
 		wait.until(ExpectedConditions.visibilityOf(webElement));
 		return webElement.isEnabled();
 	}
 
-	public static boolean waitForElementAttributeToContainValue(WebElement webElement, String attribute, String value, long timeoutInSeconds) {
+	public static boolean waitForElementAttributeToContainValue(WebElement webElement, String attribute, String value, int timeoutInSeconds) {
 		log.info("CALLED: waitForElementAttributeToContainValue()");
 		WebDriverWait wait = new WebDriverWait(getDriver(), timeoutInSeconds);
 		wait.until(ExpectedConditions.attributeContains(webElement, attribute, value));
 		return webElement.getAttribute(attribute).contains(value);
 	}
 
-	public static boolean waitForElementToBecomeVisible(By locator, long timeout) {
+	public static boolean waitForElementToBecomeVisible(By locator, int timeout) {
 		log.info("CALLED: waitForElementToBecomeVisible()");
 		WebDriverWait wait = new WebDriverWait(getDriver(), timeout, 500);
 		try{
@@ -226,7 +226,7 @@ public class WaiterUtil extends SeleniumUtils {
 	 * @param timeout
 	 * @return
 	 */
-	public static boolean waitForElementToDisappear(By locator, long timeout) {
+	public static boolean waitForElementToDisappear(By locator, int timeout) {
 		log.info("CALLED: waitForElementToDisappear()");
 		WebDriverWait wait = new WebDriverWait(getDriver(), timeout, 500);
 		try{
