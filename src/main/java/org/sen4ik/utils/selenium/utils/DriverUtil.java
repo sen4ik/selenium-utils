@@ -155,9 +155,7 @@ public class DriverUtil extends SeleniumUtils {
     public static boolean isElementVisible(By locator) {
         log.info("CALLED: isElementVisible()");
         try {
-            getDriver().findElement(locator).isDisplayed();
-            log.info("Element is visible");
-            return true;
+            return getDriver().findElement(locator).isDisplayed();
         } catch (NoSuchElementException e) {
             log.info("Element is NOT visible");
             return false;
@@ -167,9 +165,7 @@ public class DriverUtil extends SeleniumUtils {
     public static boolean isElementVisible(WebElement webElement) {
         log.info("CALLED: isElementVisible()");
         try {
-            webElement.isDisplayed();
-            log.info("Element is visible");
-            return true;
+            return webElement.isDisplayed();
         } catch (NoSuchElementException e) {
             log.info("Element is NOT visible");
             return false;
