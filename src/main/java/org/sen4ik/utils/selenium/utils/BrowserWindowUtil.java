@@ -215,6 +215,10 @@ public class BrowserWindowUtil extends SeleniumUtils {
         return found;
     }
 
+    public static boolean waitForNumberOfWindowsToEqual(int expectedNumberOfWindows){
+        return WaiterUtil.waitForNumberOfWindowsToEqual(expectedNumberOfWindows);
+    }
+
     public static boolean waitForNumberOfWindowsToEqual(int expectedNumberOfWindows, int timeoutInSeconds){
         return WaiterUtil.waitForNumberOfWindowsToEqual(expectedNumberOfWindows, timeoutInSeconds);
     }

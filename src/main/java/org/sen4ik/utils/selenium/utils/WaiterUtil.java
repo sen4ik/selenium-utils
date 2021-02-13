@@ -68,7 +68,7 @@ public class WaiterUtil extends SeleniumUtils {
 				return true;
 			}
 
-			pauseMilliseconds(500);
+			pauseMilliseconds(SeleniumUtils.defaultPollingPeriodInMilliseconds);
 		}
 	}
 
@@ -109,7 +109,7 @@ public class WaiterUtil extends SeleniumUtils {
 	 * 		&& (angular.element(document.getElementById('ng-app')).injector() !== undefined)
 	 * 		&& (angular.element(document.getElementById('ng-app')).injector().get('$http').pendingRequests.length === 0)
 	 * </code>
-	 * Current method will use default 60 seconds timeout and 500 milliseconds polling frequency.
+	 * Current method will use default SeleniumUtils.defaultTimeoutInSeconds timeout and SeleniumUtils.defaultPollingPeriodInMilliseconds polling frequency.
 	 * @return
 	 */
 	public static boolean waitForAngularToComplete() {
@@ -161,21 +161,21 @@ public class WaiterUtil extends SeleniumUtils {
 	public static boolean waitForJQueryToFinishProcessing(int timeout, int pollingSeconds) {
 		log.info("CALLED: waitForJQueryToFinishProcessing()");
 		// Dirty wait to make sure jQuery had enough time to start executing
-		pauseMilliseconds(500);
+		pauseMilliseconds(SeleniumUtils.defaultPollingPeriodInMilliseconds);
 		WebDriverWait wait = new WebDriverWait(getDriver(), timeout, pollingSeconds);
 		return wait.until((ExpectedCondition<Boolean>) driver -> (Boolean) ((JavascriptExecutor) driver)
 				.executeScript("return (window.jQuery!= null) && (jQuery.active === 0);"));
 	}
 
 	/**
-	 * Waits for element to be present on page within the specified timeout.
+	 * Waits for element to be present on page and to be clickable within the specified timeout.
 	 * @param locator
 	 * @param timeout
 	 * @return
 	 */
 	public static boolean waitForElement(By locator, int timeout) {
 		log.info("CALLED: waitForElement()");
-		WebDriverWait wait = new WebDriverWait(getDriver(), timeout, 500);
+		WebDriverWait wait = new WebDriverWait(getDriver(), timeout, SeleniumUtils.defaultPollingPeriodInMilliseconds);
 		try{
 			wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 			wait.until(ExpectedConditions.elementToBeClickable(locator));
@@ -188,11 +188,59 @@ public class WaiterUtil extends SeleniumUtils {
 		}
 	}
 
+	public static boolean waitForElementToBePresent(By locator, int timeoutInSeconds) {
+		log.info("CALLED: waitForElementToBecomePresent()");
+		WebDriverWait wait = new WebDriverWait(getDriver(), timeoutInSeconds, SeleniumUtils.defaultPollingPeriodInMilliseconds);
+		try{
+			wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+			log.info("Element is present");
+			return true;
+		}
+		catch(TimeoutException te){
+			log.info("Timeout is reached. Element is NOT present");
+			return false;
+		}
+	}
+
+	public static boolean waitForElementToBeClickable(By locator, int timeoutInSeconds) {
+		log.info("CALLED: waitForElementToBeClickable()");
+		WebDriverWait wait = new WebDriverWait(getDriver(), timeoutInSeconds, SeleniumUtils.defaultPollingPeriodInMilliseconds);
+		try{
+			wait.until(ExpectedConditions.elementToBeClickable(locator));
+			log.info("Element is clickable");
+			return true;
+		}
+		catch(TimeoutException te){
+			log.info("Timeout is reached. Element is NOT clickable");
+			return false;
+		}
+	}
+
+	/*
 	public static boolean waitForElementToBecomeVisible(WebElement webElement, int timeoutInSeconds) {
 		log.info("CALLED: waitForElementToBecomeVisible()");
 		WebDriverWait wait = new WebDriverWait(getDriver(), timeoutInSeconds);
 		wait.until(ExpectedConditions.visibilityOf(webElement));
 		return webElement.isEnabled();
+	}
+	 */
+
+	public static boolean waitForElementToBecomeVisible(WebElement webElement, int timeoutInSeconds) {
+		log.info("CALLED: waitForElementToBecomeVisible()");
+		WebDriverWait wait = new WebDriverWait(getDriver(), timeoutInSeconds);
+		try{
+			wait.until(ExpectedConditions.visibilityOf(webElement));
+			log.info("Element is visible");
+			return true;
+		}
+		catch(TimeoutException te){
+			log.info("Timeout is reached. Element is NOT visible");
+			return false;
+		}
+	}
+
+	public static boolean waitForElementToBecomeVisible(By locator, int timeoutInSeconds) {
+		return waitForElementToBecomeVisible(getDriver().findElement(locator), timeoutInSeconds);
 	}
 
 	public static boolean waitForElementAttributeToContainValue(WebElement webElement, String attribute, String value, int timeoutInSeconds) {
@@ -202,21 +250,9 @@ public class WaiterUtil extends SeleniumUtils {
 		return webElement.getAttribute(attribute).contains(value);
 	}
 
-	public static boolean waitForElementToBecomeVisible(By locator, int timeout) {
-		log.info("CALLED: waitForElementToBecomeVisible()");
-		WebDriverWait wait = new WebDriverWait(getDriver(), timeout, 500);
-		try{
-			wait.until(ExpectedConditions.elementToBeClickable(locator));
-			return true;
-		}
-		catch(TimeoutException te){
-			return false;
-		}
-	}
-
 	public static boolean waitForElementToBecomeStale(WebElement webElement, int timeoutInSeconds) {
 		log.info("CALLED: waitForElementToBecomeStale()");
-		WebDriverWait wait = new WebDriverWait(getDriver(), timeoutInSeconds, 500);
+		WebDriverWait wait = new WebDriverWait(getDriver(), timeoutInSeconds, SeleniumUtils.defaultPollingPeriodInMilliseconds);
 		return wait.until(ExpectedConditions.stalenessOf(webElement));
 	}
 
@@ -228,7 +264,7 @@ public class WaiterUtil extends SeleniumUtils {
 	 */
 	public static boolean waitForElementToDisappear(By locator, int timeout) {
 		log.info("CALLED: waitForElementToDisappear()");
-		WebDriverWait wait = new WebDriverWait(getDriver(), timeout, 500);
+		WebDriverWait wait = new WebDriverWait(getDriver(), timeout, SeleniumUtils.defaultPollingPeriodInMilliseconds);
 		try{
 			wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
 			return true;
